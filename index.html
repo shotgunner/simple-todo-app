@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Todo App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <div class="add-todo">
+            <input type="text" id="todoInput" placeholder="Enter a new todo...">
+            <button onclick="addTodo()">Add</button>
+        </div>
+        <ul id="todoList" class="todo-list">
+            <!-- Todos will be inserted here -->
+        </ul>
+    </div>
+
+    <script>
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const todoList = document.getElementById('todoList');
+            
+            if (input.value.trim() !== '') {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${input.value}</span>
+                    <div class="todo-actions">
+                        <input type="checkbox" onchange="toggleComplete(this)">
+                        <button class="edit-btn" onclick="editTodo(this)">Edit</button>
+                    </div>
+                `;
+                todoList.appendChild(li);
+                input.value = '';
+            }
+        }
+
+        function toggleComplete(checkbox) {
+            const todoItem = checkbox.closest('li');
+            todoItem.classList.toggle('completed');
+        }
+
+        function editTodo(button) {
+            const todoItem = button.closest('li');
+            const span = todoItem.querySelector('span');
+            const newText = prompt('Edit todo:', span.textContent);
+            
+            if (newText !== null && newText.trim() !== '') {
+                span.textContent = newText;
+            }
+        }
+    </script>
+</body>
+</html>
