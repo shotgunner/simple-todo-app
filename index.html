@@ -30,6 +30,7 @@
                     <div class="todo-actions">
                         <input type="checkbox" onchange="toggleComplete(this)">
                         <button class="edit-btn" onclick="editTodo(this)">Edit</button>
+                        <button class="delete-btn" onclick="deleteTodo(this)">Delete</button>
                     </div>
                 `;
                 todoList.appendChild(li);
@@ -49,6 +50,16 @@
             
             if (newText !== null && newText.trim() !== '') {
                 span.textContent = newText;
+            }
+        }
+
+        function deleteTodo(button) {
+            if (confirm('Are you sure you want to delete this todo?')) {
+                const todoItem = button.closest('li');
+                todoItem.classList.add('fade-out');
+                setTimeout(() => {
+                    todoItem.remove();
+                }, 300);
             }
         }
     </script>
